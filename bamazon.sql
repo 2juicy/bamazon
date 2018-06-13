@@ -5,7 +5,7 @@ USE bamazon;
 
 CREATE TABLE products (
   id INTEGER(11) AUTO_INCREMENT NOT NULL,
-  product_name VARCHAR(30) NULL,
+  product_name VARCHAR(40) NULL,
   department_name VARCHAR(10) NULL,
   price DECIMAL(10,2) NULL,
   quantity INTEGER(10),
@@ -33,7 +33,7 @@ INSERT INTO products (product_name, department_name, price, quantity)
 VALUES ("DEAD CELLS", "GAMING", 17.99, 18);
 
 INSERT INTO products (product_name, department_name, price, quantity)
-VALUES ("LORDS OF THE FALLEN - GAME OF THE YEAR EDITION", "GAMING", 4.31, 543);
+VALUES ("LORDS OF THE FALLEN - GOTY EDITION", "GAMING", 4.31, 543);
 
 INSERT INTO products (product_name, department_name, price, quantity)
 VALUES ("HUMAN: FALL FLAT", "GAMING", 6.74, 21);
