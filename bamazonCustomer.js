@@ -16,11 +16,14 @@ connection.connect(function (err) {
 });
 
 function readProducts() {
-  console.log("Selecting all products...\n");
+  console.log("Displaying all products...");
   connection.query("SELECT * FROM products", function(err, res) {
     if (err) throw err;
-    // Log all results of the SELECT statement
-    console.log(res);
+    for (let i = 0; i < res.length; i++) {
+        console.log("\n" + res[i].id + 
+          ". " + res[i].product_name + 
+          "\nPrice: $" + res[i].price);
+    }
     connection.end();
   });
 }
