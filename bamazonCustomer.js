@@ -49,7 +49,7 @@ function startInquirer(x) {
       connection.end();
     } else {
       let query = "UPDATE products SET quantity = quantity - ? WHERE id = ?"
-      connection.query(query, [inquirerRes.quantity, x[inquirerRes.product - 1].id], function (err, res) {
+      connection.query(query, [inquirerRes.quantity, x[inquirerRes.product - 1].id], function (err) {
         if (err) throw err;
         console.log("Successfully purchased " + inquirerRes.quantity + ' copy/copies of ' + x[inquirerRes.product - 1].product_name + '.');
       });
