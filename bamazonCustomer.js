@@ -25,19 +25,33 @@ function readProducts() {
           ". " + res[i].product_name + 
           "\nPrice: $" + res[i].price);
     }
-    connection.end();
-    startInquirer();
+    
+    startInquirer(res);
+
   });
 }
 
-function startInquirer(){
-  inquirer.prompt([{
+function startInquirer(x){
+  inquirer.prompt([
+    {
         type: 'input',
         name: 'product',
         message: 'Which product would you like to purchase?(Enter product #)'
-    }]).then(function (res) {
-        console.log(res.product);
-    });
-
+    },
+    {
+      type: 'input',
+      name: 'quantity',
+      message: 'Enter the amount you would like to purchase?'
+    }
+    ]).then(function (inquirerResults) {
+        console.log(inquirerResults.product);
+        console.log(inquirerResults.quantity);
+        let query = "UPDATE products SET quantity = quantity - ? WHERE id = ?"
+        connection.query(query, [inquirerResults.quantity, x[inquirerResults.product - 1].id], function (err, res) {
+                        if (err) throw err;
+                        console.log("Database Successfully updated");
+                    });
+        connection.end();
+    }); 
 
 }
