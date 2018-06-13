@@ -25,12 +25,9 @@ function readProducts() {
         ". " + res[i].product_name +
         "\nPrice: $" + res[i].price);
     }
-
     startInquirer(res);
-
-  });
-}
-
+  });}
+//Start asking customer which product and quantity.
 function startInquirer(x) {
   inquirer.prompt([
     {
@@ -58,5 +55,4 @@ function startInquirer(x) {
     }
     connection.end();
   });
-
 }
