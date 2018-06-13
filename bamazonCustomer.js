@@ -17,9 +17,9 @@ connection.connect(function (err) {
 });
 //Displays all the products for sale in a list.
 function readProducts() {
-  console.log("Displaying all products...");
   connection.query("SELECT * FROM products", function (err, res) {
     if (err) throw err;
+    console.log("Displaying products from " + res[0].department_name);
     for (let i = 0; i < res.length; i++) {
       console.log("\n" + res[i].id +
         ". " + res[i].product_name +
@@ -43,15 +43,15 @@ function startInquirer(x) {
       name: 'quantity',
       message: 'Enter the amount you would like to purchase?'
     }
-  ]).then(function (inquirerResults) {
-    if (x[inquirerResults.product - 1].quantity <= 0 || inquirerResults.quantity > x[inquirerResults.product - 1].quantity) {
-      console.log('Not enough left in stock to purchase.');
+  ]).then(function (inquirerRes) {
+    if (x[inquirerRes.product - 1].quantity <= 0 || inquirerRes.quantity > x[inquirerRes.product - 1].quantity) {
+      console.log('Insufficient quantity!');
       connection.end();
     } else {
       let query = "UPDATE products SET quantity = quantity - ? WHERE id = ?"
-      connection.query(query, [inquirerResults.quantity, x[inquirerResults.product - 1].id], function (err, res) {
+      connection.query(query, [inquirerRes.quantity, x[inquirerRes.product - 1].id], function (err, res) {
         if (err) throw err;
-        console.log("Successfully purchased " + inquirerResults.quantity + ' copy/copies of ' + x[inquirerResults.product - 1].product_name + '.');
+        console.log("Successfully purchased " + inquirerRes.quantity + ' copy/copies of ' + x[inquirerRes.product - 1].product_name + '.');
       });
     }
     connection.end();
