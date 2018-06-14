@@ -26,7 +26,8 @@ function readProducts() {
         "\nPrice: $" + res[i].price);
     }
     startInquirer(res);
-  });}
+  });
+}
 //Start asking customer which product and quantity.
 function startInquirer(x) {
   inquirer.prompt([
