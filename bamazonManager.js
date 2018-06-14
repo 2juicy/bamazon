@@ -97,3 +97,41 @@ function addInventory(x) {
     connection.end();
   });
 }
+//Add New Product function
+function addProduct(){
+    inquirer
+    .prompt([
+      {
+        name: "name",
+        type: "input",
+        message: "What is the name of the product you would like to add?"
+      },
+      {
+        name: "price",
+        type: "input",
+        message: "What is the price?",
+      },
+      {
+        name: "quantity",
+        type: "input",
+        message: "How much of this product is in stock?",
+        validate: function (value) {
+          if (isNaN(value) === false) {
+            return true;
+          }
+          return false;
+        }
+      }
+    ]).then(function (answer) {
+        connection.query(
+        "INSERT INTO products SET ?",
+        {
+          product_name: answer.name,
+          department_name: "GAMING",
+          price: answer.price,
+          quantity: answer.quantity
+        });
+        console.log(answer.quantity + 'x ' + answer.name + ' added into database!');
+        connection.end();
+    });
+}
