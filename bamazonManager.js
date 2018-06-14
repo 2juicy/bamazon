@@ -63,7 +63,7 @@ function viewProducts(x) {
 }
 //View Low Products function
 function lowProducts() {
-    connection.query("SELECT * FROM products WHERE quantity < 5" , function (err, res) {
+    connection.query("SELECT * FROM products WHERE quantity <= 5" , function (err, res) {
         if (err) throw err;
         console.log("Displaying products from " + res[0].department_name);
         for (let i = 0; i < res.length; i++) {

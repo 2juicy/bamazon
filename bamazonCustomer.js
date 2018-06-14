@@ -42,18 +42,17 @@ function startInquirer(x) {
       message: 'Enter the amount you would like to purchase?'
     }
   ]).then(function (inquirerRes) {
-    if (x[inquirerRes.product - 1].quantity <= 0 || inquirerRes.quantity > x[inquirerRes.product - 1].quantity) {
-      console.log('Insufficient quantity!');
-      connection.end();
-    } else {
-      let query = "UPDATE products SET quantity = quantity - ? WHERE id = ?"
-      connection.query(query, [inquirerRes.quantity, x[inquirerRes.product - 1].id], function (err) {
-        if (err) throw err;
+    let query = "UPDATE products SET quantity = quantity - ? WHERE id = ?";
+    connection.query(query, [inquirerRes.quantity, x[inquirerRes.product - 1].id], function (err) {
+      if (err) throw err;
+      if (x[inquirerRes.product - 1].quantity <= 0 || inquirerRes.quantity > x[inquirerRes.product - 1].quantity) {
+        console.log('Insufficient quantity!');
+      } else {
         let total = ((x[inquirerRes.product - 1].price) * inquirerRes.quantity).toFixed(2);
-        console.log("The total of your purchase is $" + total + 
+        console.log("The total of your purchase is $" + total +
           "\nSuccessfully purchased " + inquirerRes.quantity + ' copy/copies of ' + x[inquirerRes.product - 1].product_name + '.');
-      });
-    }
+      }
+    });
     connection.end();
   });
 }
